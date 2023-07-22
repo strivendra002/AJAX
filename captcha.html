@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CaptchaCode</title>
+    <script>
+        function generateCaptcha() {
+            var cap = new Array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 
+            'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',0,1,2,3,4,5,6,7,8,9,
+             'i','j','k','l','m','n','o','p','q','r','s','u','t','v','w','x','y', 'z' );
+            var i;
+            for (i = 0; i<=4; i++) {
+                var a = cap[Math.floor(Math.random() * cap.length)];
+                var b = cap[Math.floor(Math.random() * cap.length)];
+                var c = cap[Math.floor(Math.random() * cap.length)];
+                var d = cap[Math.floor(Math.random() * cap.length)];
+            }
+            var code = a + b + c + d;
+            document.getElementById("mainCaptcha").value = code
+        };
+        function checkValidCaptcha() {
+
+            var string1 = removeSpaces(document.getElementById("mainCaptcha").value);
+             var string2 = removeSpaces(document.getElementById("textInput").value);
+
+             if(string1==string2){
+                document.getElementById("success").innerHTML="Verified!";
+                alert("Verified");
+
+                window.location="index.php";
+                return true;
+             }
+             else{
+                document.getElementById("error").innerHTML="Invalid Captcha!";
+                alert("invalid Captcha!");
+                return false;
+             }
+
+             function removeSpaces(string){
+
+                return string.split(' ').join('');
+
+             }
+
+        }
+
+    </script>
+</head>
+
+<body onload="generateCaptcha();">
+    <center>
+        <h1>Verify You Are Not a Robot!</h1>
+        <table>
+            <tr>
+                <td>
+                    <input type="text" name="" id="mainCaptcha" style="background-color: yellow; height: 40px; font-size:large;  font-family: captcha code;"  readonly>
+                    <input type="button" id="refresh" value="Refresh" onclick="generateCaptcha();">
+
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" name="" id="textInput">
+
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="button" value="Check" id="check" onclick="checkValidCaptcha();">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span id="error" style="color: red;"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span id="success" style="color: green;"></span>
+                </td>
+            </tr>
+        </table>
+    </center>
+
+</body>
+
+</html>
